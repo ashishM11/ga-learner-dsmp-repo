@@ -20,20 +20,10 @@ print(numerical_var)
 # --------------
 # code starts here
 
-banks  = bank.drop(columns='Loan_ID')
-
-bank_mode = banks.mode()
-all_cols = list(bank_mode.columns)
-
-def get_data_frame(cols,banks):
-    for col in cols:
-        banks[col] = banks[col].fillna(bank_mode[col][0])
-    return banks
-
-banks = get_data_frame(all_cols,banks)
-
+banks  = bank.drop(columns='Loan_ID',axis=1)
+bank_mode = banks.mode().iloc[0]
+banks.fillna(bank_mode,inplace=True)
 banks.info()
-
 
 # --------------
 # Code starts here
